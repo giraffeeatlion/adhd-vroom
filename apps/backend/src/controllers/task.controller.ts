@@ -59,3 +59,27 @@ export const deleteTask = async (req: AuthenticatedRequest, res: Response) => {
     res.status(500).json({ message: 'Error deleting task' });
   }
 };
+
+export const getSuggestedTask = async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const userId = req.user!.userId;
+    const task = await taskService.getSuggestedTask(userId);
+    res.status(200).json(task);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching suggested task' });
+  }
+};
+
+export const createManyTasks = async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const userId = req.user!.userId;
+    const tasks = req.body;
+    if (!Array.isArray(tasks)) {
+      return res.status(400).json({ message: 'Request body must be an array.' });
+    }
+    const newTasks = await taskService.createManyTasks(userId, tasks);
+    res.status(201).json(newTasks);
+  } catch (error) {
+    res.status(500).json({ message: 'Error creating tasks' });
+  }
+};

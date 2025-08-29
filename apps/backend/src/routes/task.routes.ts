@@ -7,6 +7,8 @@ import {
   createTask,
   updateTask,
   deleteTask,
+  getSuggestedTask,
+  createManyTasks,
 } from '../controllers/task.controller.js';
 
 const router = Router();
@@ -15,9 +17,13 @@ const router = Router();
 router.use(authMiddleware);
 
 // Define the routes
+router.get('/suggested', getSuggestedTask);
+router.post('/bulk', createManyTasks);
+
 router.get('/', getTasks);
 router.post('/', createTask);
 router.put('/:taskId', updateTask);
 router.delete('/:taskId', deleteTask);
+
 
 export default router;

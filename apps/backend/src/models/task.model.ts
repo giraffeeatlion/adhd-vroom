@@ -10,5 +10,6 @@ export interface Task {
   context: string | null;
   due_date: Date | null;
   completed_at: Date | null;
+  estimated_time_minutes: number | null;
   created_at: Date;
 }
